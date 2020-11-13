@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.FunsMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Funs">
+        <id column="fun_id" jdbcType="INTEGER" property="funId"/>
+        <result column="fun_name" jdbcType="VARCHAR" property="funName"/>
+        <result column="fun_pid" jdbcType="INTEGER" property="funPid"/>
+        <result column="fun_url" jdbcType="VARCHAR" property="funUrl"/>
+        <result column="SEQ" jdbcType="INTEGER" property="seq"/>
+        <result column="fun_key" jdbcType="VARCHAR" property="funKey"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    fun_id, fun_name, fun_pid, fun_url, SEQ, fun_key
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from funs
+        where fun_id = #{funId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from funs
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Funs">
+    insert into funs (fun_id, fun_name, fun_pid, 
+      fun_url, SEQ, fun_key
+      )
+    values (#{funId,jdbcType=INTEGER}, #{funName,jdbcType=VARCHAR}, #{funPid,jdbcType=INTEGER}, 
+      #{funUrl,jdbcType=VARCHAR}, #{seq,jdbcType=INTEGER}, #{funKey,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Funs">
+        insert into funs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="funId != null">
+                fun_id,
+            </if>
+            <if test="funName != null">
+                fun_name,
+            </if>
+            <if test="funPid != null">
+                fun_pid,
+            </if>
+            <if test="funUrl != null">
+                fun_url,
+            </if>
+            <if test="seq != null">
+                SEQ,
+            </if>
+            <if test="funKey != null">
+                fun_key,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="funId != null">
+                #{funId,jdbcType=INTEGER},
+            </if>
+            <if test="funName != null">
+                #{funName,jdbcType=VARCHAR},
+            </if>
+            <if test="funPid != null">
+                #{funPid,jdbcType=INTEGER},
+            </if>
+            <if test="funUrl != null">
+                #{funUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="seq != null">
+                #{seq,jdbcType=INTEGER},
+            </if>
+            <if test="funKey != null">
+                #{funKey,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Funs">
+        update funs
+        <set>
+            <if test="funName != null">
+                fun_name = #{funName,jdbcType=VARCHAR},
+            </if>
+            <if test="funPid != null">
+                fun_pid = #{funPid,jdbcType=INTEGER},
+            </if>
+            <if test="funUrl != null">
+                fun_url = #{funUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="seq != null">
+                SEQ = #{seq,jdbcType=INTEGER},
+            </if>
+            <if test="funKey != null">
+                fun_key = #{funKey,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where fun_id = #{funId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Funs">
+    update funs
+    set fun_name = #{funName,jdbcType=VARCHAR},
+      fun_pid = #{funPid,jdbcType=INTEGER},
+      fun_url = #{funUrl,jdbcType=VARCHAR},
+      SEQ = #{seq,jdbcType=INTEGER},
+      fun_key = #{funKey,jdbcType=VARCHAR}
+    where fun_id = #{funId,jdbcType=INTEGER}
+  </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from funs
+    </select>
+
+    <select id="findFunsByUsersId" parameterType="int" resultMap="BaseResultMap">
+    select funs.* from users,roles,roles_funs,funs where users.user_id=#{id} and users.roles_id=roles.roles_id and roles.roles_id=roles_funs.roles_id and roles_funs.fun_id=funs.fun_id ORDER BY funs.SEQ
+  </select>
+
+    <select id="findSubFunsByFunId" parameterType="int" resultMap="BaseResultMap">
+        select fun2.* from funs fun1 ,funs fun2 where fun1.fun_id=#{id} and fun1.fun_id=fun2.fun_pid order  by fun2.SEQ asc
+    </select>
+    <select id="findFunsByAdminId" resultMap="BaseResultMap">
+        select funs.* from admin,roles,roles_funs,funs where admin.id=#{id} and admin.roles_id=roles.roles_id and roles.roles_id=roles_funs.roles_id and roles_funs.fun_id=funs.fun_id ORDER BY funs.SEQ
+    </select>
+</mapper>

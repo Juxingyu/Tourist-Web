@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.SceneryMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Scenery">
+        <id column="sce_id" jdbcType="INTEGER" property="sceId"/>
+        <result column="scenicType_id" jdbcType="INTEGER" property="scenictypeId"/>
+        <result column="sec_name" jdbcType="VARCHAR" property="secName"/>
+        <result column="sec_pic" jdbcType="VARCHAR" property="secPic"/>
+        <result column="sec_site" jdbcType="VARCHAR" property="secSite"/>
+        <result column="sec_level" jdbcType="VARCHAR" property="secLevel"/>
+        <result column="open_time" jdbcType="VARCHAR" property="openTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="prase_count" jdbcType="INTEGER" property="praseCount"/>
+        <result column="refer" jdbcType="INTEGER" property="refer"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xingyu.travel.model.Scenery">
+        <result column="sec_desc" jdbcType="LONGVARCHAR" property="secDesc"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sce_id, scenicType_id, sec_name, sec_pic, sec_site, sec_level, open_time, status,
+    create_date, update_date, prase_count, refer
+  </sql>
+    <sql id="Blob_Column_List">
+    sec_desc
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scenery
+        where sce_id = #{sceId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scenery
+    where sce_id = #{sceId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Scenery">
+    insert into scenery (sce_id, scenicType_id, sec_name,
+      sec_pic, sec_site, sec_level,
+      open_time, status, create_date,
+      update_date, prase_count, refer,
+      sec_desc)
+    values (#{sceId,jdbcType=INTEGER}, #{scenictypeId,jdbcType=INTEGER}, #{secName,jdbcType=VARCHAR},
+      #{secPic,jdbcType=VARCHAR}, #{secSite,jdbcType=VARCHAR}, #{secLevel,jdbcType=VARCHAR},
+      #{openTime,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},
+      #{updateDate,jdbcType=TIMESTAMP}, #{praseCount,jdbcType=INTEGER}, #{refer,jdbcType=INTEGER},
+      #{secDesc,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Scenery">
+        insert into scenery
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sceId != null">
+                sce_id,
+            </if>
+            <if test="scenictypeId != null">
+                scenicType_id,
+            </if>
+            <if test="secName != null">
+                sec_name,
+            </if>
+            <if test="secPic != null">
+                sec_pic,
+            </if>
+            <if test="secSite != null">
+                sec_site,
+            </if>
+            <if test="secLevel != null">
+                sec_level,
+            </if>
+            <if test="openTime != null">
+                open_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="praseCount != null">
+                prase_count,
+            </if>
+            <if test="refer != null">
+                refer,
+            </if>
+            <if test="secDesc != null">
+                sec_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sceId != null">
+                #{sceId,jdbcType=INTEGER},
+            </if>
+            <if test="scenictypeId != null">
+                #{scenictypeId,jdbcType=INTEGER},
+            </if>
+            <if test="secName != null">
+                #{secName,jdbcType=VARCHAR},
+            </if>
+            <if test="secPic != null">
+                #{secPic,jdbcType=VARCHAR},
+            </if>
+            <if test="secSite != null">
+                #{secSite,jdbcType=VARCHAR},
+            </if>
+            <if test="secLevel != null">
+                #{secLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="openTime != null">
+                #{openTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="praseCount != null">
+                #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="refer != null">
+                #{refer,jdbcType=INTEGER},
+            </if>
+            <if test="secDesc != null">
+                #{secDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Scenery">
+        update scenery
+        <set>
+            <if test="scenictypeId != null">
+                scenicType_id = #{scenictypeId,jdbcType=INTEGER},
+            </if>
+            <if test="secName != null">
+                sec_name = #{secName,jdbcType=VARCHAR},
+            </if>
+            <if test="secPic != null">
+                sec_pic = #{secPic,jdbcType=VARCHAR},
+            </if>
+            <if test="secSite != null">
+                sec_site = #{secSite,jdbcType=VARCHAR},
+            </if>
+            <if test="secLevel != null">
+                sec_level = #{secLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="openTime != null">
+                open_time = #{openTime,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="praseCount != null">
+                prase_count = #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="refer != null">
+                refer = #{refer,jdbcType=INTEGER},
+            </if>
+            <if test="secDesc != null">
+                sec_desc = #{secDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where sce_id = #{sceId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xingyu.travel.model.Scenery">
+    update scenery
+    set scenicType_id = #{scenictypeId,jdbcType=INTEGER},
+      sec_name = #{secName,jdbcType=VARCHAR},
+      sec_pic = #{secPic,jdbcType=VARCHAR},
+      sec_site = #{secSite,jdbcType=VARCHAR},
+      sec_level = #{secLevel,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      refer = #{refer,jdbcType=INTEGER},
+      sec_desc = #{secDesc,jdbcType=LONGVARCHAR}
+    where sce_id = #{sceId,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Scenery">
+    update scenery
+    set scenicType_id = #{scenictypeId,jdbcType=INTEGER},
+      sec_name = #{secName,jdbcType=VARCHAR},
+      sec_pic = #{secPic,jdbcType=VARCHAR},
+      sec_site = #{secSite,jdbcType=VARCHAR},
+      sec_level = #{secLevel,jdbcType=VARCHAR},
+      open_time = #{openTime,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      refer = #{refer,jdbcType=INTEGER}
+    where sce_id = #{sceId,jdbcType=INTEGER}
+  </update>
+
+
+    <!---->
+    <select id="findAllScenery" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scenery where scenery.status=1 order by scenery.update_date desc
+    </select>
+    <select id="findSceRefer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scenery where refer=1 and status=1 order by scenery.prase_count desc
+    </select>
+    <select id="findSceByTypeId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scenery where status=1 and scenicType_id=#{scenictypeId} order by scenery.prase_count desc
+    </select>
+    <select id="findAllSce" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scenery where status=1 order by scenery.update_date desc
+    </select>
+    <select id="findSceByName" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from scenery where scenery.sec_name like '%${secName}%'
+    </select>
+    <select id="findSceNameById" resultType="java.lang.String">
+        select scenery.sec_name from scenery where sce_id=#{sceId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

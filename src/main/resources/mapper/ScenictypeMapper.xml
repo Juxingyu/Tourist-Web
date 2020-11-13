@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.ScenictypeMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Scenictype">
+        <id column="scenicType_id" jdbcType="INTEGER" property="scenictypeId"/>
+        <result column="scenicTpye_name" jdbcType="VARCHAR" property="scenictpyeName"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    scenicType_id, scenicTpye_name, status, create_date, update_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from scenictype
+        where scenicType_id = #{scenictypeId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from scenictype
+    where scenicType_id = #{scenictypeId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Scenictype">
+    insert into scenictype (scenicType_id, scenicTpye_name, status,
+      create_date, update_date)
+    values (#{scenictypeId,jdbcType=INTEGER}, #{scenictpyeName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Scenictype">
+        insert into scenictype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="scenictypeId != null">
+                scenicType_id,
+            </if>
+            <if test="scenictpyeName != null">
+                scenicTpye_name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="scenictypeId != null">
+                #{scenictypeId,jdbcType=INTEGER},
+            </if>
+            <if test="scenictpyeName != null">
+                #{scenictpyeName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Scenictype">
+        update scenictype
+        <set>
+            <if test="scenictpyeName != null">
+                scenicTpye_name = #{scenictpyeName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where scenicType_id = #{scenictypeId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Scenictype">
+    update scenictype
+    set scenicTpye_name = #{scenictpyeName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where scenicType_id = #{scenictypeId,jdbcType=INTEGER}
+  </update>
+    <select id="findAllSceneryType" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from scenictype where scenictype.status=1
+    </select>
+    <select id="findSceTypeName" resultType="java.lang.String">
+        select scenictype.scenicTpye_name from scenictype where scenicType_id=#{scenictypeId}
+    </select>
+</mapper>

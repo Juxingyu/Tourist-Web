@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.StrategyMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Strategy">
+        <id column="stra_id" jdbcType="INTEGER" property="straId"/>
+        <result column="straType_id" jdbcType="INTEGER" property="stratypeId"/>
+        <result column="stra_title" jdbcType="VARCHAR" property="straTitle"/>
+        <result column="stra_pic" jdbcType="VARCHAR" property="straPic"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="prase_count" jdbcType="INTEGER" property="praseCount"/>
+        <result column="refer" jdbcType="INTEGER" property="refer"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xingyu.travel.model.Strategy">
+        <result column="stra_context" jdbcType="LONGVARCHAR" property="straContext"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    stra_id, straType_id, stra_title, stra_pic, status, create_date, update_date, prase_count,
+    refer
+  </sql>
+    <sql id="Blob_Column_List">
+    stra_context
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from strategy
+        where stra_id = #{straId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from strategy
+    where stra_id = #{straId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Strategy">
+    insert into strategy (stra_id, straType_id, stra_title,
+      stra_pic, status, create_date,
+      update_date, prase_count, refer,
+      stra_context)
+    values (#{straId,jdbcType=INTEGER}, #{stratypeId,jdbcType=INTEGER}, #{straTitle,jdbcType=VARCHAR},
+      #{straPic,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP},
+      #{updateDate,jdbcType=TIMESTAMP}, #{praseCount,jdbcType=INTEGER}, #{refer,jdbcType=INTEGER},
+      #{straContext,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Strategy">
+        insert into strategy
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="straId != null">
+                stra_id,
+            </if>
+            <if test="stratypeId != null">
+                straType_id,
+            </if>
+            <if test="straTitle != null">
+                stra_title,
+            </if>
+            <if test="straPic != null">
+                stra_pic,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="praseCount != null">
+                prase_count,
+            </if>
+            <if test="refer != null">
+                refer,
+            </if>
+            <if test="straContext != null">
+                stra_context,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="straId != null">
+                #{straId,jdbcType=INTEGER},
+            </if>
+            <if test="stratypeId != null">
+                #{stratypeId,jdbcType=INTEGER},
+            </if>
+            <if test="straTitle != null">
+                #{straTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="straPic != null">
+                #{straPic,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="praseCount != null">
+                #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="refer != null">
+                #{refer,jdbcType=INTEGER},
+            </if>
+            <if test="straContext != null">
+                #{straContext,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Strategy">
+        update strategy
+        <set>
+            <if test="stratypeId != null">
+                straType_id = #{stratypeId,jdbcType=INTEGER},
+            </if>
+            <if test="straTitle != null">
+                stra_title = #{straTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="straPic != null">
+                stra_pic = #{straPic,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="praseCount != null">
+                prase_count = #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="refer != null">
+                refer = #{refer,jdbcType=INTEGER},
+            </if>
+            <if test="straContext != null">
+                stra_context = #{straContext,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where stra_id = #{straId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xingyu.travel.model.Strategy">
+    update strategy
+    set straType_id = #{stratypeId,jdbcType=INTEGER},
+      stra_title = #{straTitle,jdbcType=VARCHAR},
+      stra_pic = #{straPic,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      refer = #{refer,jdbcType=INTEGER},
+      stra_context = #{straContext,jdbcType=LONGVARCHAR}
+    where stra_id = #{straId,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Strategy">
+    update strategy
+    set straType_id = #{stratypeId,jdbcType=INTEGER},
+      stra_title = #{straTitle,jdbcType=VARCHAR},
+      stra_pic = #{straPic,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      refer = #{refer,jdbcType=INTEGER}
+    where stra_id = #{straId,jdbcType=INTEGER}
+  </update>
+
+
+    <!---->
+    <select id="findAllStrategy" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from strategy where status=1 order by strategy.update_date desc
+    </select>
+    <select id="findStraRefer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from strategy where refer=1 and status=1 order by strategy.prase_count desc
+    </select>
+    <select id="findStraByTypeId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from strategy where status=1 and strategy.straType_id=#{stratypeId}
+    </select>
+    <select id="findStraByName" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from strategy where strategy.stra_title like '%${straTitle}%'
+    </select>
+</mapper>

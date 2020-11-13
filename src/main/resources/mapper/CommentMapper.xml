@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Comment">
+        <id column="comment_id" jdbcType="INTEGER" property="commentId"/>
+        <result column="notes_id" jdbcType="INTEGER" property="notesId"/>
+        <result column="stra_id" jdbcType="INTEGER" property="straId"/>
+        <result column="sce_id" jdbcType="INTEGER" property="sceId"/>
+        <result column="food_id" jdbcType="INTEGER" property="foodId"/>
+        <result column="users_id" jdbcType="INTEGER" property="usersId"/>
+        <result column="comment_content" jdbcType="VARCHAR" property="commentContent"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="prase_count" jdbcType="INTEGER" property="praseCount"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    comment_id, notes_id, stra_id, sce_id, food_id, users_id, comment_content, status,
+    prase_count, create_date, update_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where comment_id = #{commentId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from comment
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Comment">
+    insert into comment (comment_id, notes_id, stra_id,
+      sce_id, food_id, users_id,
+      comment_content, status, prase_count,
+      create_date, update_date)
+    values (#{commentId,jdbcType=INTEGER}, #{notesId,jdbcType=INTEGER}, #{straId,jdbcType=INTEGER},
+      #{sceId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER}, #{usersId,jdbcType=INTEGER},
+      #{commentContent,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{praseCount,jdbcType=INTEGER},
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Comment">
+        insert into comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                comment_id,
+            </if>
+            <if test="notesId != null">
+                notes_id,
+            </if>
+            <if test="straId != null">
+                stra_id,
+            </if>
+            <if test="sceId != null">
+                sce_id,
+            </if>
+            <if test="foodId != null">
+                food_id,
+            </if>
+            <if test="usersId != null">
+                users_id,
+            </if>
+            <if test="commentContent != null">
+                comment_content,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="praseCount != null">
+                prase_count,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="notesId != null">
+                #{notesId,jdbcType=INTEGER},
+            </if>
+            <if test="straId != null">
+                #{straId,jdbcType=INTEGER},
+            </if>
+            <if test="sceId != null">
+                #{sceId,jdbcType=INTEGER},
+            </if>
+            <if test="foodId != null">
+                #{foodId,jdbcType=INTEGER},
+            </if>
+            <if test="usersId != null">
+                #{usersId,jdbcType=INTEGER},
+            </if>
+            <if test="commentContent != null">
+                #{commentContent,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="praseCount != null">
+                #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Comment">
+        update comment
+        <set>
+            <if test="notesId != null">
+                notes_id = #{notesId,jdbcType=INTEGER},
+            </if>
+            <if test="straId != null">
+                stra_id = #{straId,jdbcType=INTEGER},
+            </if>
+            <if test="sceId != null">
+                sce_id = #{sceId,jdbcType=INTEGER},
+            </if>
+            <if test="usersId != null">
+                users_id = #{usersId,jdbcType=INTEGER},
+            </if>
+            <if test="foodId != null">
+                food_id = #{foodId,jdbcType=INTEGER},
+            </if>
+            <if test="commentContent != null">
+                comment_content = #{commentContent,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="praseCount != null">
+                prase_count = #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where comment_id = #{commentId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Comment">
+    update comment
+    set notes_id = #{notesId,jdbcType=INTEGER},
+      stra_id = #{straId,jdbcType=INTEGER},
+      sce_id = #{sceId,jdbcType=INTEGER},
+      food_id = #{foodId,jdbcType=INTEGER},
+      users_id = #{usersId,jdbcType=INTEGER},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+    <select id="findAllComment" resultMap="BaseResultMap">
+        select * from comment where 1=1
+        <if test="notesId != null and notesId!=''">
+            and notes_id = #{notesId,jdbcType=INTEGER}
+        </if>
+        <if test="straId != null and straId!=''">
+            and stra_id = #{straId,jdbcType=INTEGER}
+        </if>
+        <if test="sceId != null and sceId!=''">
+            and sce_id = #{sceId,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="findAllNotesComment" resultMap="BaseResultMap">
+        select * from comment where comment.notes_id!='' and status=1 order by comment.update_date
+    </select>
+    <select id="findAllStraComment" resultMap="BaseResultMap">
+        select * from comment where comment.stra_id!='' and status=1 order by comment.update_date
+    </select>
+    <select id="findAllSceComment" resultMap="BaseResultMap">
+        select * from comment where comment.sce_id!='' and status=1 order by comment.update_date
+    </select>
+    <select id="findNotesComment" resultMap="BaseResultMap">
+        select * from comment where comment.notes_id=#{notesId}
+    </select>
+    <select id="findSceComment" resultMap="BaseResultMap">
+        select * from comment where comment.sce_id=#{sceId}
+    </select>
+    <select id="findStraComment" resultMap="BaseResultMap">
+        select * from comment where comment.stra_id=#{straId}
+    </select>
+    <select id="findFoodComment" resultMap="BaseResultMap">
+        select * from comment where comment.food_id=#{id,jdbcType=INTEGER}
+    </select>
+</mapper>

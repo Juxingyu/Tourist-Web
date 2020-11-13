@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.NotestypeMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Notestype">
+        <id column="notesType_id" jdbcType="INTEGER" property="notestypeId"/>
+        <result column="notesType_name" jdbcType="VARCHAR" property="notestypeName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    notesType_id, notesType_name
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from notestype
+        where notesType_id = #{notestypeId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notestype
+    where notesType_id = #{notestypeId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Notestype">
+    insert into notestype (notesType_id, notesType_name)
+    values (#{notestypeId,jdbcType=INTEGER}, #{notestypeName,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Notestype">
+        insert into notestype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="notestypeId != null">
+                notesType_id,
+            </if>
+            <if test="notestypeName != null">
+                notesType_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="notestypeId != null">
+                #{notestypeId,jdbcType=INTEGER},
+            </if>
+            <if test="notestypeName != null">
+                #{notestypeName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Notestype">
+        update notestype
+        <set>
+            <if test="notestypeName != null">
+                notesType_name = #{notestypeName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where notesType_id = #{notestypeId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Notestype">
+    update notestype
+    set notesType_name = #{notestypeName,jdbcType=VARCHAR}
+    where notesType_id = #{notestypeId,jdbcType=INTEGER}
+  </update>
+
+    <select id="findAllNoteType" resultMap="BaseResultMap">
+    select * from notestype
+  </select>
+    <select id="findNotesTypeById" resultMap="BaseResultMap">
+        select * from notestype where notesType_id=#{notestypeId}
+    </select>
+</mapper>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.UsersMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Users">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="login_name" jdbcType="VARCHAR" property="loginName"/>
+        <result column="pet_name" jdbcType="VARCHAR" property="petName"/>
+        <result column="pass" jdbcType="VARCHAR" property="pass"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="roles_id" jdbcType="INTEGER" property="rolesId"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="reg_date" jdbcType="TIMESTAMP" property="regDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    user_id, login_name, pet_name, pass, pic, roles_id, email, status, reg_date, update_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from users
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Users">
+    insert into users (user_id, login_name, pet_name, 
+      pass, pic, roles_id, email,
+      status, reg_date, update_date
+      )
+    values (#{userId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{petName,jdbcType=VARCHAR}, 
+      #{pass,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, #{rolesId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR},
+      #{status,jdbcType=INTEGER}, #{regDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Users">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="loginName != null">
+                login_name,
+            </if>
+            <if test="petName != null">
+                pet_name,
+            </if>
+            <if test="pass != null">
+                pass,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="rolesId != null">
+                roles_id,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="regDate != null">
+                reg_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="loginName != null">
+                #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="petName != null">
+                #{petName,jdbcType=VARCHAR},
+            </if>
+            <if test="pass != null">
+                #{pass,jdbcType=VARCHAR},
+            </if>
+            <if test="pic != null">
+                #{pic,jdbcType=VARCHAR},
+            </if>
+            <if test="rolesId != null">
+                #{rolesId,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="regDate != null">
+                #{regDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Users">
+        update users
+        <set>
+            <if test="loginName != null">
+                login_name = #{loginName,jdbcType=VARCHAR},
+            </if>
+            <if test="petName != null">
+                pet_name = #{petName,jdbcType=VARCHAR},
+            </if>
+            <if test="pass != null">
+                pass = #{pass,jdbcType=VARCHAR},
+            </if>
+            <if test="pic != null">
+                pic = #{pic,jdbcType=VARCHAR},
+            </if>
+            <if test="rolesId != null">
+                roles_id = #{rolesId,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="regDate != null">
+                reg_date = #{regDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Users">
+    update users
+    set login_name = #{loginName,jdbcType=VARCHAR},
+      pet_name = #{petName,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      roles_id = #{rolesId,jdbcType=INTEGER},
+      pic = #{pic,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      reg_date = #{regDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users where roles_id=5
+    </select>
+    <select id="findByLoginVo" parameterType="com.xingyu.travel.vo.LoginVo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users where LOGIN_NAME=#{loginName} and status=1 and pass=#{pass}
+    </select>
+    <select id="findLoginNameAndEmail" parameterType="com.xingyu.travel.model.Users" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from users where LOGIN_NAME=#{loginName} and email=#{email}
+    </select>
+    <select id="findByIdAndPassword" resultType="boolean">
+        select * from users where user_id=#{userId} and users.pass=#{oldPwd} and status=1
+    </select>
+    <update id="updatePass">
+        update users set pass=#{newPwd} where user_id=#{userId}
+    </update>
+    <select id="findByEmail" resultMap="BaseResultMap">
+        select * from  users where users.email=#{email}
+    </select>
+    <select id="findByLoginName" resultMap="BaseResultMap">
+        select * from  users where users.login_name=#{loginName}
+    </select>
+</mapper>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.CollectMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Collect">
+        <id column="collect_id" jdbcType="INTEGER" property="collectId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="notes_id" jdbcType="INTEGER" property="notesId"/>
+        <result column="sce_id" jdbcType="INTEGER" property="sceId"/>
+        <result column="stra_id" jdbcType="INTEGER" property="straId"/>
+        <result column="food_id" jdbcType="INTEGER" property="foodId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    collect_id, user_id, notes_id, sce_id, stra_id, food_id
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from collect
+        where collect_id = #{collectId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from collect
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Collect">
+    insert into collect (collect_id, user_id, notes_id,
+      sce_id, stra_id, food_id
+      )
+    values (#{collectId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{notesId,jdbcType=INTEGER},
+      #{sceId,jdbcType=INTEGER}, #{straId,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Collect">
+        insert into collect
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="collectId != null">
+                collect_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="notesId != null">
+                notes_id,
+            </if>
+            <if test="sceId != null">
+                sce_id,
+            </if>
+            <if test="straId != null">
+                stra_id,
+            </if>
+            <if test="foodId != null">
+                food_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="collectId != null">
+                #{collectId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="notesId != null">
+                #{notesId,jdbcType=INTEGER},
+            </if>
+            <if test="sceId != null">
+                #{sceId,jdbcType=INTEGER},
+            </if>
+            <if test="straId != null">
+                #{straId,jdbcType=INTEGER},
+            </if>
+            <if test="foodId != null">
+                #{foodId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Collect">
+        update collect
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="notesId != null">
+                notes_id = #{notesId,jdbcType=INTEGER},
+            </if>
+            <if test="sceId != null">
+                sce_id = #{sceId,jdbcType=INTEGER},
+            </if>
+            <if test="straId != null">
+                stra_id = #{straId,jdbcType=INTEGER},
+            </if>
+            <if test="foodId != null">
+                food_id = #{foodId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where collect_id = #{collectId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Collect">
+    update collect
+    set user_id = #{userId,jdbcType=INTEGER},
+      notes_id = #{notesId,jdbcType=INTEGER},
+      sce_id = #{sceId,jdbcType=INTEGER},
+      stra_id = #{straId,jdbcType=INTEGER},
+      food_id = #{foodId,jdbcType=INTEGER}
+    where collect_id = #{collectId,jdbcType=INTEGER}
+  </update>
+    <select id="findAllNotes" resultType="com.xingyu.travel.model.Notes">
+        select collect.notes_id from collect where collect.user_id=#{userId}
+    </select>
+    <select id="findAllSce" resultType="com.xingyu.travel.model.Scenery">
+        select collect.sce_id from collect where collect.user_id=#{userId}
+    </select>
+    <select id="findAllStra" resultType="com.xingyu.travel.model.Strategy">
+        select collect.stra_id from collect where collect.user_id=#{userId}
+    </select>
+    <select id="findAllCollect" resultMap="BaseResultMap">
+        select * from collect where collect.user_id=#{userId}
+    </select>
+    <select id="findCollectBysceId" resultMap="BaseResultMap">
+        select * from collect where collect.sce_id=#{sceId}
+    </select>
+    <select id="findCollectByUIdAndSceId" resultMap="BaseResultMap">
+        select * from collect where collect.sce_id=#{sceId} and user_id=#{userId}
+    </select>
+    <select id="findCollectByUIdAndNotesId" resultMap="BaseResultMap">
+        select * from collect where collect.notes_id=#{notesId} and user_id=#{userId}
+    </select>
+    <select id="findCollectByUIdAndStraId" resultMap="BaseResultMap">
+        select * from collect where collect.stra_id=#{straId} and user_id=#{userId}
+    </select>
+    <select id="findCollectByUIdAndFoodId" resultMap="BaseResultMap">
+        select * from collect where collect.food_id=#{id} and user_id=#{userId}
+    </select>
+</mapper>

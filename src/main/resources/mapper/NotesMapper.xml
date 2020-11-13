@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.NotesMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Notes">
+        <id column="notes_id" jdbcType="INTEGER" property="notesId"/>
+        <result column="notesType_id" jdbcType="INTEGER" property="notestypeId"/>
+        <result column="notes_title" jdbcType="VARCHAR" property="notesTitle"/>
+        <result column="notes_pic" jdbcType="VARCHAR" property="notesPic"/>
+        <result column="notes_location" jdbcType="CHAR" property="notesLocation"/>
+        <result column="notes_status" jdbcType="INTEGER" property="notesStatus"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="prase_count" jdbcType="INTEGER" property="praseCount"/>
+        <result column="refer" jdbcType="INTEGER" property="refer"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xingyu.travel.model.Notes">
+        <result column="notes_content" jdbcType="LONGVARCHAR" property="notesContent"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    notes_id, notesType_id, notes_title, notes_pic, notes_location, notes_status, create_date,
+    update_date, user_id, prase_count, refer
+  </sql>
+    <sql id="Blob_Column_List">
+    notes_content
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from notes
+        where notes_id = #{notesId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notes
+    where notes_id = #{notesId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Notes">
+    insert into notes (notes_id, notesType_id, notes_title,
+      notes_pic, notes_location, notes_status,
+      create_date, update_date, user_id,
+      prase_count, refer, notes_content
+      )
+    values (#{notesId,jdbcType=INTEGER}, #{notestypeId,jdbcType=INTEGER}, #{notesTitle,jdbcType=VARCHAR},
+      #{notesPic,jdbcType=VARCHAR}, #{notesLocation,jdbcType=CHAR}, #{notesStatus,jdbcType=INTEGER},
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER},
+      #{praseCount,jdbcType=INTEGER}, #{refer,jdbcType=INTEGER}, #{notesContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Notes">
+        insert into notes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="notesId != null">
+                notes_id,
+            </if>
+            <if test="notestypeId != null">
+                notesType_id,
+            </if>
+            <if test="notesTitle != null">
+                notes_title,
+            </if>
+            <if test="notesPic != null">
+                notes_pic,
+            </if>
+            <if test="notesLocation != null">
+                notes_location,
+            </if>
+            <if test="notesStatus != null">
+                notes_status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="praseCount != null">
+                prase_count,
+            </if>
+            <if test="refer != null">
+                refer,
+            </if>
+            <if test="notesContent != null">
+                notes_content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="notesId != null">
+                #{notesId,jdbcType=INTEGER},
+            </if>
+            <if test="notestypeId != null">
+                #{notestypeId,jdbcType=INTEGER},
+            </if>
+            <if test="notesTitle != null">
+                #{notesTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="notesPic != null">
+                #{notesPic,jdbcType=VARCHAR},
+            </if>
+            <if test="notesLocation != null">
+                #{notesLocation,jdbcType=CHAR},
+            </if>
+            <if test="notesStatus != null">
+                #{notesStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="praseCount != null">
+                #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="refer != null">
+                #{refer,jdbcType=INTEGER},
+            </if>
+            <if test="notesContent != null">
+                #{notesContent,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Notes">
+        update notes
+        <set>
+            <if test="notestypeId != null">
+                notesType_id = #{notestypeId,jdbcType=INTEGER},
+            </if>
+            <if test="notesTitle != null">
+                notes_title = #{notesTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="notesPic != null">
+                notes_pic = #{notesPic,jdbcType=VARCHAR},
+            </if>
+            <if test="notesLocation != null">
+                notes_location = #{notesLocation,jdbcType=CHAR},
+            </if>
+            <if test="notesStatus != null">
+                notes_status = #{notesStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="praseCount != null">
+                prase_count = #{praseCount,jdbcType=INTEGER},
+            </if>
+            <if test="refer != null">
+                refer = #{refer,jdbcType=INTEGER},
+            </if>
+            <if test="notesContent != null">
+                notes_content = #{notesContent,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where notes_id = #{notesId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xingyu.travel.model.Notes">
+    update notes
+    set notesType_id = #{notestypeId,jdbcType=INTEGER},
+      notes_title = #{notesTitle,jdbcType=VARCHAR},
+      notes_pic = #{notesPic,jdbcType=VARCHAR},
+      notes_location = #{notesLocation,jdbcType=CHAR},
+      notes_status = #{notesStatus,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      refer = #{refer,jdbcType=INTEGER},
+      notes_content = #{notesContent,jdbcType=LONGVARCHAR}
+    where notes_id = #{notesId,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Notes">
+    update notes
+    set notesType_id = #{notestypeId,jdbcType=INTEGER},
+      notes_title = #{notesTitle,jdbcType=VARCHAR},
+      notes_pic = #{notesPic,jdbcType=VARCHAR},
+      notes_location = #{notesLocation,jdbcType=CHAR},
+      notes_status = #{notesStatus,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      prase_count = #{praseCount,jdbcType=INTEGER},
+      refer = #{refer,jdbcType=INTEGER}
+    where notes_id = #{notesId,jdbcType=INTEGER}
+  </update>
+    <select id="findAllNotes" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from notes order by notes.update_date desc,notes.prase_count desc
+    </select>
+    <select id="findNotesRefer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from notes where refer=1 and notes_status=1 order by notes.prase_count desc
+    </select>
+    <select id="findNotesByTypeId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from notes where notes_status=1 and notes.notesType_id=#{notestypeId} and refer=1 order by notes.prase_count
+        desc
+    </select>
+    <select id="findNotesByName" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from notes where notes.notes_title like '%${notesName}%'
+    </select>
+    <select id="findNotesByUsersId" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from notes where notes.user_id=#{userId}
+    </select>
+</mapper>

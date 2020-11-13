@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingyu.travel.mapper.StrategytypeMapper">
+    <resultMap id="BaseResultMap" type="com.xingyu.travel.model.Strategytype">
+        <id column="straType_id" jdbcType="INTEGER" property="stratypeId" />
+        <result column="straType_name" jdbcType="VARCHAR" property="stratypeName" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    straType_id, straType_name, status, create_date, update_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from strategytype
+        where straType_id = #{stratypeId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from strategytype
+    where straType_id = #{stratypeId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.xingyu.travel.model.Strategytype">
+    insert into strategytype (straType_id, straType_name, status,
+      create_date, update_date)
+    values (#{stratypeId,jdbcType=INTEGER}, #{stratypeName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xingyu.travel.model.Strategytype">
+        insert into strategytype
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stratypeId != null">
+                straType_id,
+            </if>
+            <if test="stratypeName != null">
+                straType_name,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stratypeId != null">
+                #{stratypeId,jdbcType=INTEGER},
+            </if>
+            <if test="stratypeName != null">
+                #{stratypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xingyu.travel.model.Strategytype">
+        update strategytype
+        <set>
+            <if test="stratypeName != null">
+                straType_name = #{stratypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where straType_id = #{stratypeId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xingyu.travel.model.Strategytype">
+    update strategytype
+    set straType_name = #{stratypeName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where straType_id = #{stratypeId,jdbcType=INTEGER}
+  </update>
+    <select id="findAllStrategyType" resultMap="BaseResultMap">
+    select * from strategytype where status=1
+  </select>
+    <select id="findStraTypeById" resultMap="BaseResultMap">
+        select * from strategytype where status=1 and strategytype.straType_id=#{stratypeId}
+    </select>
+</mapper>
